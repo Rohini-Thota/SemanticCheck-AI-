@@ -1,0 +1,282 @@
+
+{% extends "base.html" %}
+
+{% block title %}Analysis Results · SemanticAi{% endblock %}
+
+{% block content %}
+
+<!-- Page heading -->
+<div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+    <div>
+        <div class="eyebrow dark-eyebrow">DOCUMENT ANALYSIS</div>
+        <h2>Analysis results</h2>
+        <p class="text-secondary mb-0">
+            {{ result.doc_a }} vs {{ result.doc_b }}
+        </p>
+    </div>
+
+    {% if result.id %}
+    <a class="btn btn-outline-primary"
+       href="{{ url_for('report', item_id=result.id) }}">
+        Download PDF report
+    </a>
+    {% endif %}
+</div>
+
+<!-- Summary metrics -->
+<div class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <div class="metric h-100">
+            <small>Overall similarity</small>
+            <div class="display-6 fw-bold">
+                {{ result.overall_similarity }}%
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="metric h-100">
+            <small>Exact matches</small>
+            <div class="display-6 fw-bold">
+                {{ result.exact_count }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="metric h-100">
+            <small>Suspicious passages</small>
+            <div class="display-6 fw-bold">
+                {{ result.suspicious_count }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Risk assessment -->
+<div class="panel mb-4">
+    <h4>{{ result.risk }}</h4>
+
+    <p class="text-secondary mb-2">
+        {{ result.method_note }}
+    </p>
+
+    <p class="small mb-0">
+        <strong>Sentence-BERT:</strong>
+        {% if result.sbert_available %}
+            Available
+        {% else %}
+            Not loaded; lexical fallback used
+        {% endif %}
+    </p>
+</div>
+
+<!-- Model status -->
+<div class="panel mb-4">
+
+    <h4 class="mb-3">Model status</h4>
+
+    <div class="row g-2">
+
+        {% for name, status in result.model_status.items() %}
+        <div class="col-md-4">
+
+            <div class="border rounded p-3 h-100">
+                <strong>{{ name }}</strong>
+                <br>
+                <small class="text-secondary">{{ status }}</small>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- Matched passages -->
+<div class="panel mb-4">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h4 class="mb-0">Matched passages</h4>
+
+        <span class="badge text-bg-light">
+            {{ result.matches|length }} matches
+        </span>
+    </div>
+
+    {% if result.matches %}
+
+        {% for m in result.matches %}
+
+        <div class="match {{ m.level }} mb-4 p-3">
+
+            <!-- Match heading -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+
+                <div>
+                    <strong>{{ m.category }}</strong>
+                    <span class="ms-2 fw-bold">
+                        {{ m.score }}% similarity
+                    </span>
+                </div>
+
+                <small class="text-secondary">
+                    Document A sentence {{ m.sentence_number }}
+                    ↔
+                    Document B sentence {{ m.matched_sentence_number }}
+                </small>
+
+            </div>
+
+            <!-- Side by side document content -->
+            <div class="row g-3">
+
+                <div class="col-md-6">
+
+                    <div class="border rounded p-3 h-100 bg-light">
+
+                        <h6 class="fw-bold mb-2">
+                            Document A – Reference
+                        </h6>
+
+                        <p class="mb-0 text-dark">
+                            {{ m.sentence_a }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="border rounded p-3 h-100 bg-light">
+
+                        <h6 class="fw-bold mb-2">
+                            Document B – Compared content
+                        </h6>
+
+                        <p class="mb-0 text-dark">
+                            {{ m.sentence_b }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Similarity scores -->
+            <div class="mt-3">
+
+                <strong class="small">Detection scores</strong>
+
+                <div class="d-flex flex-wrap gap-3 mt-2">
+
+                    <small>
+                        TF-IDF: {{ m.tfidf }}%
+                    </small>
+
+                    {% if m.sbert is not none %}
+                    <small>
+                        SBERT: {{ m.sbert }}%
+                    </small>
+                    {% endif %}
+
+                    {% if m.word2vec is not none %}
+                    <small>
+                        Word2Vec: {{ m.word2vec }}%
+                    </small>
+                    {% endif %}
+
+                    {% if m.glove is not none %}
+                    <small>
+                        GloVe: {{ m.glove }}%
+                    </small>
+                    {% endif %}
+
+                    {% if m.bert is not none %}
+                    <small>
+                        BERT: {{ m.bert }}%
+                    </small>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="text-center py-4">
+
+            <h5>No suspicious passages found</h5>
+
+            <p class="text-secondary mb-0">
+                No passages crossed the configured similarity thresholds.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<!-- Gemini explanation -->
+<div class="panel mb-4">
+
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <h4 class="mb-0">Gemini analysis and explanation</h4>
+    </div>
+
+    {% if result.gemini_explanation %}
+
+        <div class="gemini-explanation">
+            {{ result.gemini_explanation }}
+        </div>
+
+    {% else %}
+
+        <p class="text-secondary mb-0">
+            Gemini explanation is not available.
+            Please review the detected passages manually.
+        </p>
+
+    {% endif %}
+
+</div>
+
+<!-- Review reminder -->
+<div class="alert alert-info">
+    <strong>Important:</strong>
+    Similarity scores identify textual or semantic overlap.
+    They do not independently prove plagiarism. Check the original
+    sources, citations, and context before making a final judgment.
+</div>
+
+<style>
+.gemini-explanation {
+    white-space: pre-line;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.match .bg-light {
+    background-color: #f7f8fc !important;
+}
+
+html[data-theme="dark"] .match .bg-light {
+    background-color: #202c41 !important;
+}
+
+html[data-theme="dark"] .match .bg-light p,
+html[data-theme="dark"] .match .bg-light h6 {
+    color: #f1f3fb !important;
+}
+</style>
+
+{% endblock %}

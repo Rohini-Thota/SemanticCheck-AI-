@@ -1,0 +1,522 @@
+
+:root {
+    --auth-bg: #f4f6fb;
+    --auth-surface: #ffffff;
+    --auth-soft: #f8f9fd;
+    --auth-text: #18213b;
+    --auth-muted: #68738d;
+    --auth-border: #e4e8f1;
+    --auth-accent: #6557e9;
+}
+
+:root[data-theme="dark"] {
+    --auth-bg: #111827;
+    --auth-surface: #1c2638;
+    --auth-soft: #242f43;
+    --auth-text: #f1f4fb;
+    --auth-muted: #b2bdd0;
+    --auth-border: #354259;
+    --auth-accent: #a99cff;
+}
+
+html, body {
+    background: var(--auth-bg);
+    color: var(--auth-text);
+}
+
+.app-nav, .navbar {
+    background: var(--auth-surface) !important;
+    border-bottom: 1px solid var(--auth-border);
+}
+
+.nav-link {
+    color: var(--auth-muted) !important;
+}
+
+.nav-user {
+    color: var(--auth-muted);
+    font-size: 14px;
+}
+
+.app-footer {
+    background: var(--auth-surface);
+    color: var(--auth-muted);
+    border-top: 1px solid var(--auth-border);
+}
+
+.auth-shell {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1120px;
+    min-height: 650px;
+    margin: 35px auto 55px;
+    overflow: hidden;
+    border: 1px solid var(--auth-border);
+    border-radius: 24px;
+    background: var(--auth-surface);
+    box-shadow: 0 20px 60px rgba(26, 35, 64, .07);
+}
+
+.auth-aside {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(
+        145deg,
+        #211d50,
+        #5146bd 55%,
+        #7769ef
+    );
+}
+
+.auth-brand-mark {
+    font: 800 28px Manrope, sans-serif;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+}
+
+.auth-brand-mark span {
+    color: #c7c0ff;
+}
+
+.auth-kicker {
+    color: #8b7cff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.auth-aside .auth-kicker {
+    color: #c7c0ff;
+}
+
+.auth-aside h1 {
+    color: white;
+    font: 800 43px/1.15 Manrope, sans-serif;
+    letter-spacing: -1.5px;
+}
+
+.auth-intro {
+    color: rgba(255,255,255,.8);
+    line-height: 1.8;
+    margin: 20px 0 28px;
+}
+
+.auth-points {
+    display: grid;
+    gap: 14px;
+    color: rgba(255,255,255,.95);
+    font-size: 14px;
+}
+
+.auth-form-panel {
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    background: var(--auth-surface);
+}
+
+.auth-form-wrap {
+    width: 100%;
+    max-width: 390px;
+}
+
+.auth-form-wrap h2 {
+    color: var(--auth-text);
+    font: 800 29px Manrope, sans-serif;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: var(--auth-muted);
+    margin-bottom: 25px;
+}
+
+.auth-form {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-form label {
+    color: var(--auth-text);
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 7px;
+}
+
+.auth-form .form-control {
+    min-height: 48px;
+    border-radius: 11px;
+    border-color: var(--auth-border);
+    background: var(--auth-soft);
+    color: var(--auth-text);
+    padding: 11px 14px;
+}
+
+.auth-form .form-control:focus {
+    border-color: var(--auth-accent);
+    box-shadow: 0 0 0 .2rem rgba(101,87,233,.12);
+}
+
+.auth-submit {
+    min-height: 49px;
+    margin-top: 15px;
+    border: 0;
+    border-radius: 11px;
+    background: #6557e9;
+    font-weight: 700;
+}
+
+.auth-submit:hover {
+    background: #5145d2;
+}
+
+.auth-switch {
+    text-align: center;
+    color: var(--auth-muted);
+    margin: 24px 0 12px;
+    font-size: 14px;
+}
+
+.auth-switch a {
+    color: var(--auth-accent);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footnote {
+    text-align: center;
+    color: var(--auth-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--auth-border);
+    border-radius: 12px;
+    background: var(--auth-soft);
+    color: var(--auth-text);
+    cursor: pointer;
+}
+
+@media (max-width: 850px) {
+    .auth-shell {
+        grid-template-columns: 1fr;
+        margin: 20px auto 35px;
+    }
+
+    .auth-aside {
+        padding: 35px;
+        min-height: 330px;
+    }
+
+    .auth-brand-mark {
+        margin-bottom: 25px;
+    }
+
+    .auth-aside h1 {
+        font-size: 34px;
+    }
+
+    .auth-form-panel {
+        padding: 35px 24px;
+    }
+}
+
+/* ---------- ABOUT PAGE ---------- */
+
+.about-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px 50px;
+}
+
+.about-hero {
+    padding: 55px 50px;
+    margin-bottom: 25px;
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #e3e7f0);
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(25, 35, 70, 0.05);
+}
+
+.about-eyebrow {
+    color: #6555ed;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.about-hero h1 {
+    margin: 18px 0;
+    color: var(--text, #17213e);
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.15;
+}
+
+.about-hero p {
+    max-width: 760px;
+    color: var(--muted, #66718c);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.about-card {
+    padding: 28px;
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #e3e7f0);
+    border-radius: 18px;
+}
+
+.about-card h2 {
+    color: var(--text, #17213e);
+    font-size: 20px;
+    margin: 0 0 12px;
+}
+
+.about-card p {
+    color: var(--muted, #66718c);
+    line-height: 1.75;
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-hero {
+        padding: 32px 24px;
+    }
+}
+
+/* ---------- USERNAME IN NAVBAR ---------- */
+
+.nav-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    margin: 0 4px;
+    border-radius: 10px;
+    background: #f0efff;
+    color: #5143cf;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.nav-user-icon {
+    font-size: 17px;
+}
+
+/* ---------- THEME BUTTON ---------- */
+
+.theme-toggle {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border, #e3e7f0);
+    border-radius: 13px;
+    background: var(--surface, #ffffff);
+    color: var(--text, #17213e);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-1px);
+}
+
+/* ---------- DARK THEME ---------- */
+
+html[data-theme="dark"] body {
+    background: #101522 !important;
+    color: #edf0fa !important;
+}
+
+html[data-theme="dark"] nav,
+html[data-theme="dark"] header,
+html[data-theme="dark"] .navbar {
+    background: #171f30 !important;
+    border-color: #30394d !important;
+}
+
+html[data-theme="dark"] main,
+html[data-theme="dark"] .container {
+    color: #edf0fa;
+}
+
+html[data-theme="dark"] .about-hero,
+html[data-theme="dark"] .about-card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .auth-card {
+    background: #1a2436 !important;
+    border-color: #303b51 !important;
+}
+
+html[data-theme="dark"] .about-hero h1,
+html[data-theme="dark"] .about-card h2,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] label {
+    color: #f1f3fb !important;
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] .about-hero p,
+html[data-theme="dark"] .about-card p {
+    color: #b8c2d8 !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: #111a2a !important;
+    color: #f1f3fb !important;
+    border-color: #3a465d !important;
+}
+
+html[data-theme="dark"] a:not(.btn):not(.button) {
+    color: #b7adff;
+}
+
+html[data-theme="dark"] .nav-user {
+    background: #302c59;
+    color: #d5d0ff;
+}
+
+html[data-theme="dark"] .theme-toggle {
+    background: #202b40;
+    color: #ffffff;
+    border-color: #3a465d;
+}
+
+/* =====================================
+   SEMANTICAI - DARK MODE CONTRAST FIX
+===================================== */
+
+html[data-theme="dark"] body {
+    background: #101522 !important;
+    color: #e8edf8 !important;
+}
+
+/* Navbar */
+html[data-theme="dark"] .app-nav {
+    background: #182235 !important;
+    border-bottom: 1px solid #303d54 !important;
+}
+
+html[data-theme="dark"] .project-brand {
+    color: #f4f5ff !important;
+}
+
+html[data-theme="dark"] .project-brand small {
+    color: #aab5cc !important;
+}
+
+html[data-theme="dark"] .app-nav .nav-link {
+    color: #d5dced !important;
+}
+
+html[data-theme="dark"] .app-nav .nav-link:hover {
+    color: #a99aff !important;
+}
+
+/* Main headings */
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .page-heading h2 {
+    color: #f5f6ff !important;
+}
+
+html[data-theme="dark"] .page-heading p {
+    color: #b4bfd4 !important;
+}
+
+/* All settings cards */
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .about-card,
+html[data-theme="dark"] .about-hero {
+    background: #1b263a !important;
+    border: 1px solid #35425a !important;
+    color: #edf1fa !important;
+}
+
+/* Settings headings */
+html[data-theme="dark"] .settings-card h1,
+html[data-theme="dark"] .settings-card h2,
+html[data-theme="dark"] .settings-card h3,
+html[data-theme="dark"] .settings-card h4,
+html[data-theme="dark"] .settings-card label,
+html[data-theme="dark"] .about-card h2 {
+    color: #f2f4fc !important;
+}
+
+/* Paragraphs and descriptions */
+html[data-theme="dark"] .settings-card p,
+html[data-theme="dark"] .settings-card .form-hint,
+html[data-theme="dark"] .settings-card .form-check-label,
+html[data-theme="dark"] .about-card p {
+    color: #b9c5da !important;
+}
+
+/* Form controls */
+html[data-theme="dark"] .settings-card input:not([type="checkbox"]):not([type="range"]),
+html[data-theme="dark"] .settings-card select,
+html[data-theme="dark"] .settings-card textarea {
+    background: #111b2c !important;
+    color: #f4f5ff !important;
+    border-color: #465570 !important;
+}
+
+html[data-theme="dark"] .settings-card input[type="checkbox"] {
+    background-color: #27354d;
+    border-color: #7585a2;
+}
+
+html[data-theme="dark"] .settings-card hr {
+    border-color: #43516a !important;
+    opacity: 0.7;
+}
+
+/* Buttons */
+html[data-theme="dark"] .btn-outline-primary {
+    color: #b8adff !important;
+    border-color: #8171ff !important;
+}
+
+html[data-theme="dark"] .btn-outline-primary:hover {
+    background: #6555ed !important;
+    color: #ffffff !important;
+}
+
+/* Footer */
+html[data-theme="dark"] .app-footer {
+    background: #182235 !important;
+    color: #aebbd1 !important;
+    border-color: #303d54 !important;
+}
+
+/* Theme button */
+html[data-theme="dark"] .theme-toggle {
+    background: #27344a !important;
+    color: #ffffff !important;
+    border-color: #43516a !important;
+}

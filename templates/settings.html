@@ -1,0 +1,208 @@
+
+{% extends "base.html" %}
+
+{% block title %}Settings · SemanticAi{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h1>SemanticAi Settings</h1>
+    <p>Configure document comparison and report preferences.</p>
+</div>
+
+<div class="row g-4">
+
+    <!-- Full-width plagiarism settings -->
+    <div class="col-12">
+        <section class="settings-card">
+
+            <div class="settings-card-head">
+                <div class="settings-icon blue">◎</div>
+                <div>
+                    <h4>Plagiarism detection</h4>
+                    <p>Customize how your documents are compared.</p>
+                </div>
+            </div>
+
+            <form method="POST">
+
+                <input type="hidden"
+                       name="action"
+                       value="plagiarism_settings">
+
+                <!-- Similarity threshold -->
+                <label class="form-label mt-3">
+                    Similarity threshold
+                </label>
+
+                <div class="d-flex align-items-center gap-3">
+                    <input type="range"
+                           class="form-range"
+                           name="similarity_threshold"
+                           id="similarityThreshold"
+                           min="10"
+                           max="100"
+                           value="{{ settings.similarity_threshold }}">
+
+                    <strong id="thresholdValue">
+                        {{ settings.similarity_threshold }}%
+                    </strong>
+                </div>
+
+                <div class="form-hint">
+                    Minimum similarity score for flagging a potential match.
+                </div>
+
+                <hr>
+
+                <!-- Detection methods -->
+                <label class="form-label">Detection methods</label>
+
+                {% for key, label in [
+                    ('detect_exact', 'Exact copied sentences'),
+                    ('detect_partial', 'Partial text copying'),
+                    ('detect_paraphrase', 'Paraphrased content'),
+                    ('detect_semantic', 'Semantic similarity')
+                ] %}
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ key }}"
+                           id="{{ key }}"
+                           {% if settings[key] %}checked{% endif %}>
+
+                    <label class="form-check-label" for="{{ key }}">
+                        {{ label }}
+                    </label>
+                </div>
+
+                {% endfor %}
+
+                <hr>
+
+                <!-- Comparison level -->
+                <label class="form-label" for="comparisonLevel">
+                    Comparison level
+                </label>
+
+                <select class="form-select"
+                        name="comparison_level"
+                        id="comparisonLevel">
+
+                    <option value="sentence"
+                        {% if settings.comparison_level == 'sentence' %}selected{% endif %}>
+                        Sentence level
+                    </option>
+
+                    <option value="paragraph"
+                        {% if settings.comparison_level == 'paragraph' %}selected{% endif %}>
+                        Paragraph level
+                    </option>
+
+                    <option value="document"
+                        {% if settings.comparison_level == 'document' %}selected{% endif %}>
+                        Full document
+                    </option>
+
+                </select>
+
+                <div class="form-hint mt-2">
+                    The current live detector compares sentences.
+                    Other comparison levels require additional detection logic.
+                </div>
+
+                <hr>
+
+                <!-- Passage highlighting -->
+                <label class="form-label">Passage highlighting</label>
+
+                <p class="form-hint">
+                    Red indicates high similarity. Orange indicates moderate similarity.
+                </p>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="highlight_matches"
+                           id="highlight_matches"
+                           {% if settings.highlight_matches %}checked{% endif %}>
+
+                    <label class="form-check-label"
+                           for="highlight_matches">
+                        Enable passage highlighting
+                    </label>
+                </div>
+
+                <hr>
+
+                <!-- PDF report contents -->
+                <label class="form-label">PDF report contents</label>
+
+                {% for key, label in [
+                    ('report_matches', 'Include matched passages'),
+                    ('report_scores', 'Include similarity scores'),
+                    ('report_recommendations', 'Include review recommendations')
+                ] %}
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ key }}"
+                           id="{{ key }}"
+                           {% if settings[key] %}checked{% endif %}>
+
+                    <label class="form-check-label" for="{{ key }}">
+                        {{ label }}
+                    </label>
+                </div>
+
+                {% endfor %}
+
+                <hr>
+
+                <!-- Document privacy -->
+                <label class="form-label">Document privacy</label>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="delete_after_analysis"
+                           id="delete_after_analysis"
+                           {% if settings.delete_after_analysis %}checked{% endif %}>
+
+                    <label class="form-check-label"
+                           for="delete_after_analysis">
+                        Delete uploaded documents after analysis
+                    </label>
+                </div>
+
+                <!-- Save button -->
+                <button type="submit"
+                        class="btn btn-primary mt-2">
+                    Save detection settings
+                </button>
+
+            </form>
+        </section>
+    </div>
+
+</div>
+
+<!-- Similarity slider -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const slider = document.getElementById("similarityThreshold");
+    const output = document.getElementById("thresholdValue");
+
+    if (slider && output) {
+        slider.addEventListener("input", function () {
+            output.textContent = slider.value + "%";
+        });
+    }
+
+});
+</script>
+
+{% endblock %}

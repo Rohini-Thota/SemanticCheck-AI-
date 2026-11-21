@@ -1,0 +1,143 @@
+
+{% extends "base.html" %}
+
+{% block title %}Comparison History · SemanticAi{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+  <h1>Comparison history</h1>
+  <p>Review and manage your previous document comparisons.</p>
+</div>
+
+<div class="panel history-panel">
+
+  <div class="history-toolbar">
+    <label class="d-flex align-items-center gap-2">
+      <input type="checkbox" id="selectAll">
+      Select all
+    </label>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <button type="submit" form="historyForm"
+              class="btn btn-outline-danger btn-sm"
+              id="deleteSelected" disabled
+              onclick="return confirm('Delete selected comparisons?')">
+        Delete selected
+      </button>
+
+      <form method="POST" action="{{ url_for('delete_all_history') }}"
+            onsubmit="return confirm('Delete all comparison history and generated reports?')">
+        <button type="submit" class="btn btn-danger btn-sm">
+          Delete all
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <form method="POST" action="{{ url_for('delete_selected_history') }}"
+        id="historyForm">
+    <div class="table-responsive">
+      <table class="table align-middle history-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Date</th>
+            <th>Document A</th>
+            <th>Document B</th>
+            <th>Similarity</th>
+            <th>Assessment</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for r in rows %}
+          <tr>
+            <td>
+              <input type="checkbox" class="history-checkbox"
+                     name="comparison_ids" value="{{ r.id }}">
+            </td>
+            <td>{{ r.created_at }}</td>
+            <td>{{ r.doc_a }}</td>
+            <td>{{ r.doc_b }}</td>
+            <td><strong>{{ "%.2f"|format(r.score) }}%</strong></td>
+            <td>{{ r.risk }}</td>
+            <td>
+              <div class="d-flex gap-2 flex-wrap">
+                <a class="btn btn-outline-primary btn-sm"
+                   href="{{ url_for('history_item', item_id=r.id) }}">
+                  View
+                </a>
+
+                <a class="btn btn-outline-secondary btn-sm"
+                   href="{{ url_for('report', item_id=r.id) }}">
+                  PDF
+                </a>
+
+                <button type="submit"
+                        class="btn btn-outline-danger btn-sm"
+                        form="delete-{{ r.id }}"
+                        onclick="return confirm('Delete this comparison?')">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="7" class="text-center py-5">
+              <h5>No comparison history</h5>
+              <p class="text-muted">Your completed analyses will appear here.</p>
+              <a href="{{ url_for('compare') }}" class="btn btn-primary">
+                Start a comparison
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </form>
+
+  {% for r in rows %}
+  <form id="delete-{{ r.id }}" method="POST"
+        action="{{ url_for('delete_history', item_id=r.id) }}"></form>
+  {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const selectAll = document.getElementById("selectAll");
+    const checkboxes = [...document.querySelectorAll(".history-checkbox")];
+    const deleteButton = document.getElementById("deleteSelected");
+
+    function updateSelection() {
+        const selected = checkboxes.filter(item => item.checked).length;
+
+        deleteButton.disabled = selected === 0;
+
+        selectAll.checked =
+            checkboxes.length > 0 && selected === checkboxes.length;
+
+        selectAll.indeterminate =
+            selected > 0 && selected < checkboxes.length;
+    }
+
+    selectAll.addEventListener("change", () => {
+        checkboxes.forEach(item => item.checked = selectAll.checked);
+        updateSelection();
+    });
+
+    checkboxes.forEach(item =>
+        item.addEventListener("change", updateSelection)
+    );
+
+    updateSelection();
+});
+</script>
+{% endblock %}

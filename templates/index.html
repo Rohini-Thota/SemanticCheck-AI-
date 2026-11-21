@@ -1,0 +1,154 @@
+
+{% extends "base.html" %}
+
+{% block title %}SemanticAi | Document Comparison{% endblock %}
+
+{% block content %}
+
+<section class="project-hero mb-5">
+    <div class="hero-content">
+        <div class="project-label">DOCUMENT ANALYSIS PROJECT</div>
+
+        <h1>
+            Check document similarity.<br>
+            <span>Review what matches.</span>
+        </h1>
+
+        <p>
+            SemanticAi is a document comparison system that identifies
+            matching text, similar passages and possible paraphrasing
+            using natural language processing techniques.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="/compare" class="btn btn-primary btn-lg px-4">
+                Compare Documents →
+            </a>
+
+            <a href="/history" class="btn btn-outline-secondary btn-lg px-4">
+                View History
+            </a>
+        </div>
+
+        <div class="supported-formats">
+            Supported formats: PDF, DOCX and TXT
+        </div>
+    </div>
+</section>
+
+<div class="section-kicker">PROJECT OVERVIEW</div>
+
+<div class="row g-3 mb-5">
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div>
+                <small>Saved Analyses</small>
+                <div class="stat-value">{{ total }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div>
+                <small>Comparison Methods</small>
+                <div class="stat-value">06</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div>
+                <small>Supported Languages</small>
+                <div class="stat-value">English</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="section-heading mb-3">
+    <div>
+        <div class="section-kicker">SYSTEM FEATURES</div>
+        <h2>Tools for document comparison</h2>
+    </div>
+</div>
+
+<div class="row g-3 feature-grid">
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">01</div>
+            <h5>Exact Text Matching</h5>
+            <p>
+                Identify identical sentences and copied passages
+                between two documents.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">02</div>
+            <h5>Text Similarity</h5>
+            <p>
+                Compare document content using TF-IDF,
+                cosine similarity and semantic models.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">03</div>
+            <h5>Semantic Comparison</h5>
+            <p>
+                Examine sentences with similar meanings
+                even when their wording is different.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">04</div>
+            <h5>Passage Identification</h5>
+            <p>
+                Review matching passages and locate
+                their corresponding reference text.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">05</div>
+            <h5>Analysis History</h5>
+            <p>
+                Access previously completed document
+                comparisons and their results.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">06</div>
+            <h5>PDF Reports</h5>
+            <p>
+                Generate downloadable reports containing
+                document similarity findings.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="disclaimer mt-4">
+    Similarity results are intended to support manual review.
+    A similarity score alone does not establish plagiarism.
+</div>
+
+{% endblock %}

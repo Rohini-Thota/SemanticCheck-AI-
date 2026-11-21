@@ -1,0 +1,13 @@
+{
+    "similarity_threshold": 75,
+    "detect_exact": true,
+    "detect_partial": true,
+    "detect_paraphrase": true,
+    "detect_semantic": true,
+    "comparison_level": "document",
+    "highlight_matches": true,
+    "report_matches": true,
+    "report_scores": true,
+    "report_recommendations": true,
+    "delete_after_analysis": false
+}

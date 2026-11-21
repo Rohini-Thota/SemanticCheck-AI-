@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block title %}About | SemanticAi{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="about-hero">
+        <span class="about-eyebrow">ABOUT THE PROJECT</span>
+        <h1>Making document comparison easier.</h1>
+        <p>
+            SemanticAi is an NLP-based document analysis system
+            designed to compare documents and identify matching
+            passages, partial copying, and possible paraphrasing.
+        </p>
+    </div>
+
+    <div class="about-grid">
+        <article class="about-card">
+            <h2>What SemanticAi does</h2>
+            <p>
+                It analyzes uploaded documents and highlights
+                passages that may be similar to content in another
+                uploaded document.
+            </p>
+        </article>
+
+        <article class="about-card">
+            <h2>How it works</h2>
+            <p>
+                The system uses text preprocessing, similarity
+                comparison, and semantic language-processing
+                techniques to identify potentially matching content.
+            </p>
+        </article>
+
+        <article class="about-card">
+            <h2>Analysis results</h2>
+            <p>
+                Results help users review matching passages,
+                similarity scores, and possible paraphrasing.
+                Similarity alone does not prove plagiarism.
+            </p>
+        </article>
+
+        <article class="about-card">
+            <h2>Project purpose</h2>
+            <p>
+                SemanticAi was developed as a college project to
+                demonstrate how natural language processing can
+                support document comparison and analysis.
+            </p>
+        </article>
+    </div>
+</section>
+{% endblock %}

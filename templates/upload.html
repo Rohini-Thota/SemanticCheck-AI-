@@ -1,0 +1,122 @@
+
+{% extends "base.html" %}
+
+{% block title %}New Analysis · SemanticAi{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div class="eyebrow dark-eyebrow">DOCUMENT COMPARISON</div>
+    <h1>Start a new analysis.</h1>
+    <p>Upload two documents and let SemanticAi examine wording and meaning.</p>
+</div>
+
+<div class="settings-card compare-card mx-auto">
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="row g-4">
+
+            <!-- Document A -->
+            <div class="col-md-6">
+                <label class="form-label" for="documentA">
+                    Document A
+                    <span class="text-secondary">· Reference</span>
+                </label>
+
+                <div class="file-drop">
+
+                    <input
+                        class="form-control"
+                        type="file"
+                        id="documentA"
+                        name="document_a"
+                        accept=".pdf,.docx,.txt"
+                        required
+                    >
+
+                    <small>Supported formats: PDF, DOCX, TXT</small>
+
+                    <div class="selected-file" id="fileNameA">
+                        No file selected
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Document B -->
+            <div class="col-md-6">
+                <label class="form-label" for="documentB">
+                    Document B
+                    <span class="text-secondary">· To compare</span>
+                </label>
+
+                <div class="file-drop">
+
+                    <input
+                        class="form-control"
+                        type="file"
+                        id="documentB"
+                        name="document_b"
+                        accept=".pdf,.docx,.txt"
+                        required
+                    >
+
+                    <small>Supported formats: PDF, DOCX, TXT</small>
+
+                    <div class="selected-file" id="fileNameB">
+                        No file selected
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Analyze button -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4">
+
+            <small class="text-secondary">
+                English text · Maximum file upload: 512 MB total
+            </small>
+
+            <button type="submit" class="btn btn-primary btn-lg px-4">
+                Analyze Documents
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- Display selected filenames -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const fileA = document.getElementById("documentA");
+    const fileB = document.getElementById("documentB");
+
+    const nameA = document.getElementById("fileNameA");
+    const nameB = document.getElementById("fileNameB");
+
+    if (fileA && nameA) {
+        fileA.addEventListener("change", function () {
+            nameA.textContent = this.files.length
+                ? this.files[0].name
+                : "No file selected";
+        });
+    }
+
+    if (fileB && nameB) {
+        fileB.addEventListener("change", function () {
+            nameB.textContent = this.files.length
+                ? this.files[0].name
+                : "No file selected";
+        });
+    }
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+{% block title %}Login · SemanticAi{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+  <div class="auth-aside">
+    <div class="auth-brand-mark">Semantic<span>Ai</span></div>
+    <p class="auth-kicker">DOCUMENT ANALYSIS WORKSPACE</p>
+    <h1>Understand what matches.</h1>
+    <p class="auth-intro">
+      Compare documents, review similar passages, and organize
+      your analysis in one workspace.
+    </p>
+    <div class="auth-points">
+      <div>✓ Sentence-level comparison</div>
+      <div>✓ Semantic similarity analysis</div>
+      <div>✓ Downloadable PDF reports</div>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-form-wrap">
+      <p class="auth-kicker">WELCOME BACK</p>
+      <h2>Sign in to SemanticAi</h2>
+      <p class="auth-subtitle">
+        Enter your account details to continue.
+      </p>
+
+      <form method="POST"
+            action="{{ url_for('login', next=request.args.get('next')) }}"
+            class="auth-form">
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email"
+               class="form-control"
+               placeholder="you@example.com"
+               autocomplete="email" required
+               value="{{ request.form.get('email', '') }}">
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+               class="form-control"
+               placeholder="Enter your password"
+               autocomplete="current-password" required>
+
+        <button type="submit" class="btn btn-primary auth-submit">
+          Sign in →
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        New to SemanticAi?
+        <a href="{{ url_for('register') }}">Create an account</a>
+      </p>
+
+      <p class="auth-footnote">
+        Your analysis history is associated with your account.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
