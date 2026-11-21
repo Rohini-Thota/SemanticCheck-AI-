@@ -1,9 +1,10 @@
 
 import os
 import json
-from exact_match import normalize
-from tfidf_model import pairwise_similarity
-from preprocessing import split_sentences
+
+from models.exact_match import normalize
+from models.tfidf_model import pairwise_similarity
+from models.preprocessing import split_sentences
 
 
 APP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
